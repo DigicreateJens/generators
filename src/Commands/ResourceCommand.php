@@ -45,8 +45,12 @@ class ResourceCommand extends GeneratorCommand
         $this->callSeed();
         $this->callMigrate();
 
-        $this->info('All Done!');
-        $this->info('Remember to add ' . "`Route::resource('" . str_replace('_', '-', $this->getCollectionName()) . "', '" . $this->getResourceControllerName() . "');`" . ' in `routes\\web.php`');
+        $this->info("All Done!\r\n");
+        $this->warn("Routes");
+        $this->warn("*******");
+        $this->info("Route::resource('" . str_replace('_', '-', $this->getCollectionName()) . "', '" . $this->getResourceControllerName() . "');");
+        $this->info("Route::post('" . str_replace('_', '-', $this->getCollectionName()) . "/get', '" . $this->getResourceControllerName() . "@datatables')->name('datatables.".$this->getCollectionName().".get');");
+        $this->line('');
     }
 
     /**
@@ -101,7 +105,8 @@ class ResourceCommand extends GeneratorCommand
             $arg = $this->getArgumentResource();
             $name = substr_replace($arg, str_plural($this->resource), strrpos($arg, $this->resource), strlen($this->resource));
 
-            $this->callCommandFile('controller', $name);
+            $this->callCommandFile('admin_controller', $name);
+            $this->callCommandFile('controller', $this->resource);
         }
     }
 

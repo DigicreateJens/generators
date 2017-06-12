@@ -1,48 +1,76 @@
-@extends('layouts.admin')
+@extends ('backend.layouts.app')
+
+@section ('title', trans('labels.backend.{{collection}}.management'))
+
+@section('after-styles')
+    {{ Html::style("https://cdn.datatables.net/v/bs/dt-1.10.15/datatables.min.css") }}
+@endsection
+
+@section('page-header')
+    <h1>
+        {{ trans('labels.backend.{{collection}}.management') }}
+        <small>{{ trans('labels.backend.{{collection}}.active') }}</small>
+    </h1>
+@endsection
 
 @section('content')
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="box box-primary box-solid">
-				<div class="box-header with-border">
-					<h3 class="box-title">
-						<span><i class="fa fa-table"></i></span>
-						<span>List All {{collectionUpper}}</span>
-					</h3>
-				</div>
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{ trans('labels.backend.{{collection}}.active') }}</h3>
 
-				<div class="box-body">
+            <div class="box-tools pull-right">
+                {{-- @include('backend.equnews.includes.partials.{{collection}}-header-buttons') --}}
+            </div><!--box-tools pull-right-->
+        </div><!-- /.box-header -->
 
-					@include('admin.partials.info')
+        <div class="box-body">
+            <div class="table-responsive">
+                <table id="{{collection}}-table" class="table table-condensed table-hover">
+                    <thead>
+                    <tr>
+                        <th>{{ trans('labels.backend.{{collection}}.table.id') }}</th>
+                        <th>{{ trans('labels.general.actions') }}</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div><!--table-responsive-->
+        </div><!-- /.box-body -->
+    </div><!--box-->
 
-					@include('admin.partials.toolbar')
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{ trans('history.backend.recent_history') }}</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse">
+                    <i class="material-icons">remove</i>
+                </button>
+            </div><!-- /.box tools -->
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            {!! history()->renderType('{{collection}}') !!}
+        </div><!-- /.box-body -->
+    </div><!--box box-success-->
+@endsection
 
-					<table id="tbl-list" data-server="false" class="dt-table table nowrap table-striped table-bordered" cellspacing="0" width="100%">
-						<thead>
-						<tr>
-							<th>Title</th>
-							<th class="desktop">Description</th>
-							<th>Link</th>
-							<th>Image</th>
-							<th>Created</th>
-							<th>Action</th>
-						</tr>
-						</thead>
-						<tbody>
-						@foreach ($items as $item)
-							<tr>
-								<td>{{ $item->title }}</td>
-								<td>{!! $item->description !!}</td>
-								<td>{{ link_to($item->action_link, $item->action_title, ['target' => '_blank']) }}</td>
-								<td>{!! image_row_link($item->image) !!}</td>
-								<td>{{ format_date($item->created_at) }}</td>
-								<td>{!! action_row($selectedNavigation->url, $item->id, $item->title, ['show', 'edit', 'delete']) !!}</td>
-							</tr>
-						@endforeach
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+@section('after-scripts')
+    {{ Html::script("https://cdn.datatables.net/v/bs/dt-1.10.15/datatables.min.js") }}
+
+    <script>
+        $(function () {
+            $('#{{collection}}-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '{{ route("admin.datatables.{{collection}}.get") }}',
+                    type: 'post',
+                },
+                columns: [
+                    {data: 'id', name: '{{collection}}.id'},
+                    {data: 'actions', name: 'actions', searchable: false, sortable: false}
+                ],
+                order: [[0, "asc"]],
+                searchDelay: 500
+            });
+        });
+    </script>
 @endsection

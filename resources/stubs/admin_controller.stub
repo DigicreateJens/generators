@@ -1,0 +1,115 @@
+<?php
+
+namespace App\Http\Controllers\Backend;
+
+use {{rootNamespace}}Models\{{model}};
+use Yajra\Datatables\Facades\Datatables;
+use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+
+class {{class}} extends Controller
+{
+	/**
+	 * Display a listing of {{resource}}.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		return view('backend.{{collection}}.index')->withItems({{model}}::all());
+	}
+
+	/**
+	 * Show the form for creating a new {{resource}}.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		return view('backend.{{view}}.add_edit');
+	}
+
+	/**
+	 * Store a newly created {{resource}} in storage.
+	 *
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function store(Request $request)
+	{
+		$this->validate($request, {{model}}::$rules, {{model}}::$messages);
+
+        $this->createEntry({{model}}::class, $request->all());
+
+        return redirect("{{url}}");
+	}
+
+	/**
+	 * Display the specified {{resource}}.
+	 *
+	 * @param {{model}} ${{resource}}
+	 * @return Response
+	 */
+	public function show({{model}} ${{resource}})
+	{
+		return view('backend.{{view}}.show')->withItem(${{resource}});
+	}
+
+	/**
+	 * Show the form for editing the specified {{resource}}.
+	 *
+	 * @param {{model}} ${{resource}}
+     * @return Response
+     */
+    public function edit({{model}} ${{resource}})
+	{
+		return view('backend.{{view}}.add_edit')->withItem(${{resource}});
+	}
+
+	/**
+	 * Update the specified {{resource}} in storage.
+	 *
+	 * @param {{model}}  ${{resource}}
+     * @param Request    $request
+     * @return Response
+     */
+    public function update({{model}} ${{resource}}, Request $request)
+	{
+		$this->validate($request, {{model}}::$rules, {{model}}::$messages);
+
+        $this->updateEntry(${{resource}}, $request->all());
+
+        return redirect("{{url}}");
+	}
+
+	/**
+	 * Remove the specified {{resource}} from storage.
+	 *
+	 * @param {{model}}  ${{resource}}
+     * @param Request    $request
+	 * @return Response
+	 */
+	public function destroy({{model}} ${{resource}}, Request $request)
+	{
+		$this->deleteEntry(${{resource}}, $request);
+
+        return redirect("{{url}}");
+	}
+
+	/**
+	* Add datatables for the {{resource}}
+	*
+	* @param Request    $request
+	*/
+	public function datatables(Request $request) {
+            $items = {{model}}::query();
+            return Datatables::of($items)->addColumn(
+                'actions',
+                function ($item) {
+                    return $item->getEditButton(
+                        ) . ' ' . $item->getAjaxDeleteButton();
+                }
+            )->rawColumns(['actions'])->withTrashed()->make(TRUE);
+        }
+}

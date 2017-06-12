@@ -37,6 +37,7 @@ class GeneratorsServiceProvider extends ServiceProvider
         $this->registerCommand('ModelCommand', 'model');
         $this->registerCommand('ViewCommand', 'view');
         $this->registerCommand('ControllerCommand', 'controller');
+        $this->registerCommand('AdminControllerCommand', 'admin_controller');
 
         $this->registerCommand('MigrationCommand', 'migration');
         $this->registerCommand('MigrationPivotCommand', 'migrate.pivot');

@@ -10,7 +10,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'reserve_words' => ['app', 'website', 'admin'],
+    'reserve_words' => ['app', 'website', 'admin', 'backend', 'frontend'],
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +44,13 @@ return [
         ],
         'model'        => ['namespace' => '\Models', 'path' => './app/Models/'],
         'controller'   => [
-            'namespace'           => '\Http\Controllers',
+            'namespace'           => '\Http\Controllers\Frontend',
+            'path'                => './app/Http/Controllers/Frontend/',
+            'postfix'             => 'Controller',
+            'directory_namespace' => true,
+            'dump_autoload'       => true
+        ],
+        'admin_controller'   => [
             'path'                => './app/Http/Controllers/',
             'postfix'             => 'Controller',
             'directory_namespace' => true,
@@ -75,7 +81,7 @@ return [
     'resource_views' => [
         'view_index'    => 'index',
         'view_add_edit' => 'add_edit',
-        'view_show'     => 'show',
+//        'view_show'     => 'show',
     ],
 
     /*
@@ -84,24 +90,25 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'example_stub'                => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/example.stub',
-    'model_stub'                  => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/model.stub',
-    'model_plain_stub'            => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/model.plain.stub',
-    'migration_stub'              => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/migration.stub',
-    'migration_plain_stub'        => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/migration.plain.stub',
-    'controller_stub'             => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/controller.stub',
-    'controller_plain_stub'       => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/controller.plain.stub',
-    'pivot_stub'                  => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/pivot.stub',
-    'seed_stub'                   => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/seed.stub',
-    'seed_plain_stub'             => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/seed.plain.stub',
-    'view_stub'                   => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/view.stub',
-    'view_index_stub'             => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/view.index.stub',
-    'view_add_edit_stub'          => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/view.add_edit.stub',
-    'view_show_stub'              => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/view.show.stub',
-    'schema_create_stub'          => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/schema-create.stub',
-    'schema_change_stub'          => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/schema-change.stub',
-    'notification_stub'           => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/notification.stub',
-    'event_stub'                  => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/event.stub',
-    'listener_stub'               => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/listener.stub',
-    'many_many_relationship_stub' => base_path() . '/vendor/bpocallaghan/generators/resources/stubs/many_many_relationship.stub',
+    'example_stub'                => base_path() . '/packages/Digicreate/Generators/resources/stubs/example.stub',
+    'model_stub'                  => base_path() . '/packages/Digicreate/Generators/resources/stubs/model.stub',
+    'model_plain_stub'            => base_path() . '/packages/Digicreate/Generators/resources/stubs/model.plain.stub',
+    'migration_stub'              => base_path() . '/packages/Digicreate/Generators/resources/stubs/migration.stub',
+    'migration_plain_stub'        => base_path() . '/packages/Digicreate/Generators/resources/stubs/migration.plain.stub',
+    'controller_stub'             => base_path() . '/packages/Digicreate/Generators/resources/stubs/controller.stub',
+    'admin_controller_stub'       => base_path() . '/packages/Digicreate/Generators/resources/stubs/admin_controller.stub',
+    'controller_plain_stub'       => base_path() . '/packages/Digicreate/Generators/resources/stubs/controller.plain.stub',
+    'pivot_stub'                  => base_path() . '/packages/Digicreate/Generators/resources/stubs/pivot.stub',
+    'seed_stub'                   => base_path() . '/packages/Digicreate/Generators/resources/stubs/seed.stub',
+    'seed_plain_stub'             => base_path() . '/packages/Digicreate/Generators/resources/stubs/seed.plain.stub',
+    'view_stub'                   => base_path() . '/packages/Digicreate/Generators/resources/stubs/view.stub',
+    'view_index_stub'             => base_path() . '/packages/Digicreate/Generators/resources/stubs/view.index.stub',
+    'view_add_edit_stub'          => base_path() . '/packages/Digicreate/Generators/resources/stubs/view.add_edit.stub',
+    'view_show_stub'              => base_path() . '/packages/Digicreate/Generators/resources/stubs/view.show.stub',
+    'schema_create_stub'          => base_path() . '/packages/Digicreate/Generators/resources/stubs/schema-create.stub',
+    'schema_change_stub'          => base_path() . '/packages/Digicreate/Generators/resources/stubs/schema-change.stub',
+    'notification_stub'           => base_path() . '/packages/Digicreate/Generators/resources/stubs/notification.stub',
+    'event_stub'                  => base_path() . '/packages/Digicreate/Generators/resources/stubs/event.stub',
+    'listener_stub'               => base_path() . '/packages/Digicreate/Generators/resources/stubs/listener.stub',
+    'many_many_relationship_stub' => base_path() . '/packages/Digicreate/Generators/resources/stubs/many_many_relationship.stub',
 ];

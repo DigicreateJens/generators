@@ -49,6 +49,9 @@ class FileCommand extends GeneratorCommand
             case 'controller':
                 $name = $this->getControllerName($name);
                 break;
+            case 'admin_controller':
+                $name = $this->getControllerName($name);
+                break;
             case 'seed':
                 $name = $this->getSeedName($name);
                 break;
